@@ -7,6 +7,8 @@ import 'settings.dart';
 void main() => runApp(MaterialApp(home: HomePage()));
 
 class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -14,7 +16,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
   
-  static  List<Widget> _pages = [
+  static  final List<Widget> _pages = [
     HomeScreen(),
     StatsScreen(),
     SettingsScreen(),

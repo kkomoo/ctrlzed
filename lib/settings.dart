@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'watch.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -6,6 +7,16 @@ class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        backgroundColor: const Color(0xFFE8F5E9), // Light green background
+        elevation: 0,
+      ),
       backgroundColor: const Color(0xFFE8F5E9), // Light green background
       body: SafeArea(
         child: Padding(
@@ -52,7 +63,12 @@ class SettingsScreen extends StatelessWidget {
               _buildSettingItem(
                 icon: Icons.watch_outlined,
                 title: 'Wearer',
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => WatchScreen()),
+                  );
+                },
               ),
               const SizedBox(height: 12),
 
@@ -72,8 +88,6 @@ class SettingsScreen extends StatelessWidget {
               ),
 
               const Spacer(),
-
-            
             ],
           ),
         ),

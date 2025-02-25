@@ -4,13 +4,13 @@ import 'homepage.dart';
 class RegisterScreen extends StatelessWidget {
   final VoidCallback onSwitch;
 
-  RegisterScreen({required this.onSwitch});
+  RegisterScreen({super.key, required this.onSwitch});
 
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController confirmPasswordController = TextEditingController();
-  bool agreeToTerms = false;
+  final bool agreeToTerms = false;
 
   void _submit(BuildContext context) {
     Navigator.pushReplacement(

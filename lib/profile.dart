@@ -293,10 +293,9 @@ class ProfileDetailField extends StatelessWidget {
                           );
 
                           if (selectedDate != null) {
-                            controller?.text =
-                                DateFormat('yyyy-MM-dd').format(selectedDate);
+                            controller?.text = DateFormat('yyyy-MM-dd').format(selectedDate);
                           }
-                        },
+                                                },
                       )
                     : null,
               ),
