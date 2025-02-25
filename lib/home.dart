@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'watch.dart';
-import 'profile.dart'; 
+import 'profile.dart';
 import 'search.dart';
-
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -111,12 +110,12 @@ class _HomeScreenState extends State<HomeScreen> {
                       childAspectRatio:
                           1.8, // Adjust aspect ratio for better spacing
                       children: [
-                        _buildActionIcon(Icons.watch_outlined, 'Watch',
-                            context, WatchScreen()),
+                        _buildActionIcon(Icons.watch_outlined, 'Watch', context,
+                            WatchScreen()),
                         _buildActionIcon(Icons.navigation, 'Navigation',
                             context, SearchScreen()),
                         _buildActionIcon(Icons.person_outline, 'Profile',
-                            context, ProfileScreen()),
+                            context, const ProfilePage()),
                         _buildActionIcon(Icons.calendar_today, 'Calendar',
                             context, null, _showDateTimePicker),
                       ],
@@ -187,11 +186,10 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
-      
     );
   }
 
- Widget _buildActionIcon(
+  Widget _buildActionIcon(
       IconData icon, String label, BuildContext context, Widget? page,
       [VoidCallback? onTap]) {
     return GestureDetector(
@@ -221,7 +219,8 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             Icon(icon, color: Colors.green[600], size: 24),
             const SizedBox(height: 4),
-            Text(label, style: TextStyle(color: Colors.green[600], fontSize: 12)),
+            Text(label,
+                style: TextStyle(color: Colors.green[600], fontSize: 12)),
           ],
         ),
       ),
@@ -332,6 +331,3 @@ class BatteryIndicator extends StatelessWidget {
     );
   }
 }
-
-
-
