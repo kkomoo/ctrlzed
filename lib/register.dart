@@ -4,12 +4,13 @@ import 'homepage.dart';
 class RegisterScreen extends StatelessWidget {
   final VoidCallback onSwitch;
 
-  RegisterScreen({required this.onSwitch});
+  RegisterScreen({super.key, required this.onSwitch});
 
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final TextEditingController confirmPasswordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
   bool agreeToTerms = false;
 
   void _submit(BuildContext context) {
@@ -46,9 +47,24 @@ class RegisterScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("Let’s", style: TextStyle(fontSize: 37, color: Colors.white, fontWeight: FontWeight.w300, letterSpacing: 3.0)),
-                  Text("Create your", style: TextStyle(fontSize: 45, color: Colors.white, fontWeight: FontWeight.bold, letterSpacing: 4.0)),
-                  Text("Account", style: TextStyle(fontSize: 45, color: Colors.white, fontWeight: FontWeight.bold, letterSpacing: 4.0)),
+                  Text("Let’s",
+                      style: TextStyle(
+                          fontSize: 37,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w300,
+                          letterSpacing: 3.0)),
+                  Text("Create your",
+                      style: TextStyle(
+                          fontSize: 45,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 4.0)),
+                  Text("Account",
+                      style: TextStyle(
+                          fontSize: 45,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 4.0)),
                 ],
               ),
             ),
@@ -61,9 +77,12 @@ class RegisterScreen extends StatelessWidget {
                   const SizedBox(height: 15),
                   _buildInputField(emailController, "Email"),
                   const SizedBox(height: 15),
-                  _buildInputField(passwordController, "Password", obscureText: true),
+                  _buildInputField(passwordController, "Password",
+                      obscureText: true),
                   const SizedBox(height: 15),
-                  _buildInputField(confirmPasswordController, "Confirm Password", obscureText: true),
+                  _buildInputField(
+                      confirmPasswordController, "Confirm Password",
+                      obscureText: true),
                   const SizedBox(height: 15),
                   Row(
                     children: [
@@ -85,7 +104,8 @@ class RegisterScreen extends StatelessWidget {
                     onTap: onSwitch,
                     child: const Text(
                       "Already have an account? Sign in",
-                      style: TextStyle(color: Colors.black54, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                          color: Colors.black54, fontWeight: FontWeight.bold),
                     ),
                   ),
                   const SizedBox(height: 20),
@@ -96,7 +116,8 @@ class RegisterScreen extends StatelessWidget {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(25),
                       ),
-                      padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 15),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 100, vertical: 15),
                       elevation: 3,
                     ),
                     child: const Text(
@@ -114,7 +135,8 @@ class RegisterScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildInputField(TextEditingController controller, String hint, {bool obscureText = false}) {
+  Widget _buildInputField(TextEditingController controller, String hint,
+      {bool obscureText = false}) {
     return TextField(
       controller: controller,
       obscureText: obscureText,
@@ -122,7 +144,8 @@ class RegisterScreen extends StatelessWidget {
         hintText: hint,
         filled: true,
         fillColor: Colors.white,
-        contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+        contentPadding:
+            const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(25),
           borderSide: BorderSide(color: Colors.black26),

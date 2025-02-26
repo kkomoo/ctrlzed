@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'homepage.dart';
 import 'forgotpass.dart';
 
-
 class LoginScreen extends StatelessWidget {
   final VoidCallback onSwitch;
 
-  LoginScreen({required this.onSwitch});
+  LoginScreen({super.key, required this.onSwitch});
 
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -117,14 +116,19 @@ class LoginScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  height: MediaQuery.of(context).orientation == Orientation.portrait ? 60 : 70,
+                  height:
+                      MediaQuery.of(context).orientation == Orientation.portrait
+                          ? 60
+                          : 70,
                 ),
                 Container(
                   width: double.infinity,
-                  padding: const EdgeInsets.only(top: 20, left: 30, right: 30, bottom: 30),
+                  padding: const EdgeInsets.only(
+                      top: 20, left: 30, right: 30, bottom: 30),
                   decoration: BoxDecoration(
                     color: Colors.white.withOpacity(0.95),
-                    borderRadius: const BorderRadius.vertical(top: Radius.circular(50)),
+                    borderRadius:
+                        const BorderRadius.vertical(top: Radius.circular(50)),
                   ),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
@@ -132,10 +136,10 @@ class LoginScreen extends StatelessWidget {
                       TextButton(
                         onPressed: () {
                           Navigator.push(
-  context,
-  MaterialPageRoute(builder: (context) => Forgotpass()),
-);
-
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Forgotpass()),
+                          );
                         },
                         child: const Text(
                           'Forgot Password? Click here',
@@ -150,7 +154,8 @@ class LoginScreen extends StatelessWidget {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(25),
                           ),
-                          padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 15),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 100, vertical: 15),
                         ),
                         child: const Text(
                           'Login',
@@ -170,7 +175,8 @@ class LoginScreen extends StatelessWidget {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(25),
                           ),
-                          padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 15),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 60, vertical: 15),
                         ),
                         child: const Text(
                           'Create an account',

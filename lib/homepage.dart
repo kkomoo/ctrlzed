@@ -3,21 +3,22 @@ import 'home.dart';
 import 'metrics.dart';
 import 'settings.dart';
 
-
 void main() => runApp(MaterialApp(home: HomePage()));
 
 class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
-  
-  static  List<Widget> _pages = [
+
+  static final List<Widget> _pages = [
     HomeScreen(),
     StatsScreen(),
-    SettingsScreen(),
+    SettingsPage(),
   ];
 
   void _onItemTapped(int index) {
@@ -33,8 +34,10 @@ class _HomePageState extends State<HomePage> {
       bottomNavigationBar: BottomNavigationBar(
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.bar_chart), label: 'Metrics'),
-          BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Settings'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.bar_chart), label: 'Metrics'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.settings), label: 'Settings'),
         ],
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
@@ -42,7 +45,3 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
-
-
-
-
