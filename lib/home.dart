@@ -167,7 +167,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         _buildActionIcon(Icons.navigation, 'Navigation',
                             context, SearchScreen()),
                         _buildActionIcon(Icons.person_outline, 'Profile',
-                            context, ProfileScreen()),
+                            context, const ProfilePage()),
                         _buildActionIcon(Icons.calendar_today, 'Calendar',
                             context, null, _showDateTimePicker),
                       ],

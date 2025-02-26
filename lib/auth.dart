@@ -15,7 +15,6 @@ class _AuthScreenState extends State<AuthScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-    
       body: isLogin
           ? LoginScreen(onSwitch: () => setState(() => isLogin = false))
           : RegisterScreen(onSwitch: () => setState(() => isLogin = true)),
