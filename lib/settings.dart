@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+
+import 'watch.dart';
+
 import 'package:provider/provider.dart';
 import 'providers/theme_provider.dart';
 import 'auth.dart'; // Import for logout navigation
+
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
@@ -9,6 +13,30 @@ class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        backgroundColor: const Color(0xFFE8F5E9), // Light green background
+        elevation: 0,
+      ),
+      backgroundColor: const Color(0xFFE8F5E9), // Light green background
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            children: [
+              // Hello Message
+              Container(
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: Colors.green.shade100,
+                  borderRadius: BorderRadius.circular(16),
+
       backgroundColor: Colors.green[50], // Light green background
       body: Column(
         children: [
@@ -31,6 +59,7 @@ class SettingsPage extends StatelessWidget {
                     size: 20,
                     color: Colors.black87,
                   ),
+
                 ),
                 const SizedBox(width: 12),
                 const Text(
@@ -41,8 +70,54 @@ class SettingsPage extends StatelessWidget {
                     color: Colors.black87,
                   ),
                 ),
+
+              ),
+
+              const SizedBox(height: 24),
+
+              // Settings Options
+              _buildSettingItem(
+                icon: Icons.person_outline,
+                title: 'Profile',
+                onTap: () {
+                  Navigator.pushNamed(context, '/profile');
+                },
+              ),
+              const SizedBox(height: 12),
+
+              _buildSettingItem(
+                icon: Icons.watch_outlined,
+                title: 'Wearer',
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => WatchScreen()),
+                  );
+                },
+              ),
+              const SizedBox(height: 12),
+
+              _buildSettingItem(
+                icon: Icons.settings_outlined,
+                title: 'Preferences',
+                onTap: () {},
+              ),
+              const SizedBox(height: 12),
+
+              _buildSettingItem(
+                icon: Icons.logout_outlined,
+                title: 'Sign Out',
+                onTap: () {
+                  Navigator.pushNamed(context, '/');
+                },
+              ),
+
+              const Spacer(),
+            ],
+
               ],
             ),
+
           ),
 
           // Menu items with padding

@@ -9,9 +9,14 @@ class RegisterScreen extends StatelessWidget {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+
+  final TextEditingController confirmPasswordController = TextEditingController();
+  final bool agreeToTerms = false;
+
   final TextEditingController confirmPasswordController =
       TextEditingController();
   bool agreeToTerms = false;
+
 
   void _submit(BuildContext context) {
     Navigator.pushReplacement(

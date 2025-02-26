@@ -236,6 +236,14 @@ class ProfilePage extends StatelessWidget {
                   ),
                   const SizedBox(height: 16),
 
+
+                          if (selectedDate != null) {
+                            controller?.text = DateFormat('yyyy-MM-dd').format(selectedDate);
+                          }
+                                                },
+                      )
+                    : null,
+
                   // Mental Health Condition
                   Container(
                     decoration: BoxDecoration(
@@ -269,6 +277,7 @@ class ProfilePage extends StatelessWidget {
                     ),
                   ),
                 ],
+
               ),
             ),
           ],

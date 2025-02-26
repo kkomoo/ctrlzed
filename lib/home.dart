@@ -10,8 +10,60 @@ class HomeScreen extends StatefulWidget {
   _HomeScreenState createState() => _HomeScreenState();
 }
 
+class StressLabel extends StatelessWidget {
+  final String label;
+  final String range;
+
+  const StressLabel({super.key, required this.label, required this.range});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.end,
+      children: [
+        Text(
+          label,
+          style: const TextStyle(fontSize: 16),
+        ),
+        Text(
+          range,
+          style: const TextStyle(fontSize: 12, color: Colors.grey),
+        ),
+      ],
+    );
+  }
+}
+
 class _HomeScreenState extends State<HomeScreen> {
   List<Map<String, String>> tasks = [];
+  final List<String> moods = [
+    'Happy',
+    'Fearful',
+    'Excited',
+    'Angry',
+    'Calm',
+    'Pain',
+    'Boredom',
+    'Sad',
+    'Awe',
+    'Confused',
+    'Anxious',
+    'Relief',
+    'Satisfied'
+  ];
+  final Set<String> selectedMoods = {};
+  double stressLevel = 3;
+  final Map<String, bool> symptoms = {
+    'Rapid heartbeat': false,
+    'Shortness of breath': false,
+    'Dizziness': false,
+    'Headache': false,
+    'Fatigue': false,
+    'Sweating': false,
+    'Muscle tension': false,
+    'Nausea': false,
+    'Shaking or trembling': false,
+  };
 
   @override
   Widget build(BuildContext context) {
@@ -103,7 +155,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: GridView.count(
                       shrinkWrap: true,
                       physics:
-                          NeverScrollableScrollPhysics(), // Prevents independent scrolling
+                          const NeverScrollableScrollPhysics(), // Prevents independent scrolling
                       crossAxisCount: 2,
                       mainAxisSpacing: 10,
                       crossAxisSpacing: 10,
@@ -153,31 +205,53 @@ class _HomeScreenState extends State<HomeScreen> {
 
               const SizedBox(height: 16),
 
-              // Notifications Section
-              const Text(
-                'Your Notifications',
-                style: TextStyle(
-                  color: Colors.black54,
-                  fontSize: 14,
+              // Express Your Feelings Text
+              const Center(
+                child: Text(
+                  'Express Your Feelings',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black87,
+                  ),
                 ),
               ),
-              const SizedBox(height: 8),
+
+              const SizedBox(height: 16),
+
+              // Bottom Sheet Items
               Expanded(
-                child: ListView(
+                child: GridView.count(
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 10,
+                  crossAxisSpacing: 10,
                   children: [
-                    NotificationCard(
-                      message: "Don't forget to take a break!",
-                      time: "09:02 AM",
+                    _buildBottomSheetItem(
+                      context,
+                      'Mood Tracker',
+                      Icons.mood,
+                      Colors.blue,
+                      _showMoodTracker,
                     ),
-                    const SizedBox(height: 8),
-                    NotificationCard(
-                      message: "Try to take a walk if you have time :)",
-                      time: "05:07 PM",
+                    _buildBottomSheetItem(
+                      context,
+                      'Stress Level Rating',
+                      Icons.sentiment_very_dissatisfied,
+                      Colors.red,
+                      _showStressTracker,
                     ),
-                    const SizedBox(height: 8),
-                    NotificationCard(
-                      message: "Don't wait until tomorrow!",
-                      time: "06:03 PM",
+                    _buildBottomSheetItem(
+                      context,
+                      'Physical Symptoms',
+                      Icons.healing,
+                      Colors.green,
+                      _showPhysicalSymptomsTracker,
+                    ),
+                    _buildBottomSheetItem(
+                      context,
+                      'Activities Tracker',
+                      Icons.directions_run,
+                      Colors.orange,
                     ),
                   ],
                 ),
@@ -210,7 +284,7 @@ class _HomeScreenState extends State<HomeScreen> {
             BoxShadow(
               color: Colors.black12,
               blurRadius: 10,
-              offset: Offset(0, 2),
+              offset: const Offset(0, 2),
             ),
           ],
         ),
@@ -239,52 +313,195 @@ class _HomeScreenState extends State<HomeScreen> {
       }
     });
   }
-}
 
-class NotificationCard extends StatelessWidget {
-  final String message;
-  final String time;
-
-  const NotificationCard({
-    super.key,
-    required this.message,
-    required this.time,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black12,
-            blurRadius: 10,
-            offset: Offset(0, 2),
-          ),
-        ],
+  void _showMoodTracker() {
+    showModalBottomSheet(
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            message,
-            style: const TextStyle(
-              fontSize: 14,
-              color: Colors.black87,
+      builder: (context) {
+        return StatefulBuilder(
+          builder: (BuildContext context, StateSetter setState) {
+            return Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Center(
+                    child: Text(
+                      'Mood Tracker',
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  Wrap(
+                    spacing: 10,
+                    runSpacing: 10,
+                    children: moods.map((mood) {
+                      return ChoiceChip(
+                        label: Text(mood),
+                        selected: selectedMoods.contains(mood),
+                        selectedColor: Colors.green,
+                        onSelected: (bool selected) {
+                          setState(() {
+                            if (selected) {
+                              selectedMoods.add(mood);
+                            } else {
+                              selectedMoods.remove(mood);
+                            }
+                          });
+                        },
+                      );
+                    }).toList(),
+                  ),
+                ],
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
+
+  void _showStressTracker() {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return StatefulBuilder(
+          builder: (BuildContext context, StateSetter setState) {
+            return Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Center(
+                    child: Text(
+                      'Stress Tracker',
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: const [
+                          StressLabel(label: 'Extreme Stress', range: '9-10'),
+                          StressLabel(label: 'High Stress', range: '7-8'),
+                          StressLabel(label: 'Moderate Stress', range: '4-6'),
+                          StressLabel(label: 'Low Stress', range: '3-4'),
+                          StressLabel(label: 'StressLess', range: '<3'),
+                        ],
+                      ),
+                      const SizedBox(width: 20),
+                      Container(
+                        height: 300,
+                        child: RotatedBox(
+                          quarterTurns: -1,
+                          child: Slider(
+                            value: stressLevel,
+                            min: 0,
+                            max: 10,
+                            divisions: 10,
+                            activeColor: Colors.orange,
+                            onChanged: (double value) {
+                              setState(() {
+                                stressLevel = value;
+                              });
+                            },
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 20),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: const [
+                          Icon(Icons.sentiment_very_dissatisfied,
+                              color: Colors.purple, size: 40),
+                          Icon(Icons.sentiment_dissatisfied,
+                              color: Colors.red, size: 40),
+                          Icon(Icons.sentiment_neutral,
+                              color: Colors.brown, size: 40),
+                          Icon(Icons.sentiment_satisfied,
+                              color: Colors.amber, size: 40),
+                          Icon(Icons.sentiment_very_satisfied,
+                              color: Colors.green, size: 40),
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
+
+  void _showPhysicalSymptomsTracker() {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return StatefulBuilder(
+          builder: (BuildContext context, StateSetter setState) {
+            return Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    'Physical Symptoms',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                  ...symptoms.keys.map((symptom) => CheckboxListTile(
+                        title: Text(symptom),
+                        value: symptoms[symptom],
+                        onChanged: (bool? value) {
+                          setState(() {
+                            symptoms[symptom] = value!;
+                          });
+                        },
+                        secondary: const Icon(Icons.local_hospital),
+                      )),
+                ],
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
+
+  Widget _buildBottomSheetItem(
+      BuildContext context, String title, IconData icon, Color color,
+      [VoidCallback? onTap]) {
+    return GestureDetector(
+      onTap: onTap ?? () {},
+      child: Container(
+        decoration: BoxDecoration(
+          color: color.withOpacity(0.1),
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(icon, color: color, size: 40),
+            const SizedBox(height: 8),
+            Text(
+              title,
+              textAlign: TextAlign.center,
+              style: TextStyle(color: color, fontSize: 16),
             ),
-          ),
-          const SizedBox(height: 4),
-          Text(
-            time,
-            style: const TextStyle(
-              fontSize: 12,
-              color: Colors.black54,
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
